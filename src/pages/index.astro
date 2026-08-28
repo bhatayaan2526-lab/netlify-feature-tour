@@ -1,108 +1,774 @@
 ---
 import Layout from '../components/layout.astro';
+
+const milestones = [
+  { year: 2007, age: 'Day 1', label: 'Billiii world begins', state: 'past' },
+  { year: 2012, age: 'Age 5', label: 'Five full circles', state: 'past' },
+  { year: 2017, age: 'Age 10', label: 'A decade alive', state: 'past' },
+  { year: 2023, age: 'Age 16', label: 'Sixteen years', state: 'past' },
+  { year: 2025, age: 'Age 18', label: 'Eighteen years', state: 'past' },
+  { year: 2026, age: 'Age 19', label: 'Living this chapter', state: 'current' },
+  { year: 2027, age: 'Age 20', label: 'The next chapter', state: 'future' },
+];
 ---
 
-<style>
-.steps {
-  background: var(--light);
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: min(90vw, 250px);
-  justify-content: center;
-  margin-top: 3rem;
-  padding: 5rem 5vw;
-  width: 100vw;
-}
-
-@media (min-width: 550px) {
-  .steps {
-    grid-template-columns: repeat(2, min(calc(50% - 1rem), 250px));
-  }
-}
-
-@media (min-width: 1050px) {
-  .steps {
-    grid-template-columns: repeat(4, min(calc(25% - 1.5rem), 250px));
-  }
-}
-
-.step {
-  background: var(--white);
-  border: 1px solid var(--lightBorder);
-  border-radius: var(--card-radius);
-  display: flex;
-  flex-direction: column;
-  font-size: 0.75rem;
-  padding: 1rem 1.5rem 1.5rem;
-  text-align: left;
-  box-shadow: 0 2px 4px rgb(14 30 37 / 12%);
-}
-
-.stepHeading {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0;
-}
-
-
-</style>
-
 <Layout
-  title="Netlify Feature Tour"
-  description="This is a small site to show the most powerful features of Netlify quickly!"
-  home
+  title="billiii world — Birthday Archive"
+  description="Wishing you the happiest birthday with a live timeline from 8 February 2007."
+  fullBleed
 >
-  <main class="steps">
-    <section class="step">
-      <h2 class="stepHeading">Deploy Previews</h2>
-      <p>
-        Every pull request is automatically built in an
-        identical-to-production environment for
-        <strong>painless QA, feedback, and review.</strong>
-      </p>
-      <a href="/deploy-previews" class="button">
-        Learn more <span class="sr-only">about Deploy Previews</span>
+  <main class="archive-shell">
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="wordmark" href="#top" aria-label="billiii world home">
+        <span class="mark" aria-hidden="true"></span>
+        billiii world
       </a>
+      <p class="status"><span></span> Birthday edition</p>
+    </header>
+
+    <section class="hero" id="top" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Welcome to your world · 08—02—2007</p>
+        <h1 id="page-title">billiii<br /><em>world.</em></h1>
+        <p class="intro"><strong>Wishing u the happiest birthday!</strong> Born Thursday, 8 February 2007—and still making every second count.</p>
+
+        <div class="date-stamp" aria-label="Date of birth: 8 February 2007">
+          <span>08</span><i></i><span>02</span><i></i><span>2007</span>
+        </div>
+      </div>
+
+      <div class="age-orbit" aria-label="Current age progress toward the next birthday">
+        <svg viewBox="0 0 240 240" role="img" aria-label="Progress through the current year of life">
+          <circle class="orbit-track" cx="120" cy="120" r="105"></circle>
+          <circle class="orbit-progress" cx="120" cy="120" r="105"></circle>
+        </svg>
+        <div class="orbit-center">
+          <span class="orbit-label">Current age</span>
+          <strong id="hero-age">19</strong>
+          <span class="orbit-unit">years</span>
+        </div>
+        <p class="orbit-caption"><span id="year-progress">—</span>% of year <span id="progress-age">19</span> complete</p>
+      </div>
     </section>
 
-    <section class="step">
-      <h2 class="stepHeading">Instant Rollbacks</h2>
-      <p>
-        Confidently ship to production with the knowledge that it’s a
-        one-click operation to roll back to a previous version of the site.
-        <strong>Instant disaster recovery!</strong>
-      </p>
-      <a href="/instant-rollbacks" class="button">
-        Learn more
-        <span class="sr-only">about Instant Rollbacks</span>
-      </a>
+    <section class="live-panel" aria-labelledby="live-heading">
+      <div class="panel-heading">
+        <div>
+          <p class="section-index">01 / Your live clock</p>
+          <h2 id="live-heading">This is your time.</h2>
+        </div>
+        <p class="local-note">Calculated from 12:00 AM<br />in your local time</p>
+      </div>
+
+      <div class="age-grid" aria-live="polite">
+        <div class="age-cell featured"><strong id="years">19</strong><span>Years</span></div>
+        <div class="age-cell"><strong id="months">6</strong><span>Months</span></div>
+        <div class="age-cell"><strong id="days">20</strong><span>Days</span></div>
+        <div class="age-cell"><strong id="hours">00</strong><span>Hours</span></div>
+        <div class="age-cell"><strong id="minutes">00</strong><span>Minutes</span></div>
+        <div class="age-cell seconds"><strong id="seconds">00</strong><span>Seconds</span></div>
+      </div>
+
+      <div class="totals-strip">
+        <p><span>Days lived</span><strong id="total-days">—</strong></p>
+        <p><span>Weeks lived</span><strong id="total-weeks">—</strong></p>
+        <p><span>Heartbeats, approximately</span><strong id="heartbeats">—</strong></p>
+      </div>
     </section>
 
-    <section class="step">
-      <h2 class="stepHeading">Netlify Functions</h2>
-      <p>
-        <strong>Serverless functions are superpowers for web developers!</strong>
-        Securely handle server-like requirements at any scale with no
-        provisioning, scaling, or ops overhead.
-      </p>
-      <a href="/functions" class="button">
-      Learn more
-      <span class="sr-only">about Netlify Functions</span>
-      </a>
+    <section class="countdown-section" aria-labelledby="countdown-heading">
+      <div class="countdown-copy">
+        <p class="section-index">02 / Birthday countdown</p>
+        <h2 id="countdown-heading">The next celebration is loading.</h2>
+        <p id="next-birthday-copy">Monday, 8 February 2027 marks twenty complete journeys around the sun in billiii world.</p>
+      </div>
+
+      <div class="countdown-card">
+        <div class="countdown-topline">
+          <span>Time until age <b id="next-age">20</b></span>
+          <span id="next-birthday-date">08.02.2027</span>
+        </div>
+        <div class="countdown-grid" aria-live="polite">
+          <p><strong id="count-days">—</strong><span>Days</span></p>
+          <p><strong id="count-hours">—</strong><span>Hours</span></p>
+          <p><strong id="count-minutes">—</strong><span>Minutes</span></p>
+          <p><strong id="count-seconds">—</strong><span>Seconds</span></p>
+        </div>
+      </div>
     </section>
 
-    <section class="step">
-      <h2 class="stepHeading">Netlify Forms</h2>
-      <p>
-        Handle user input with a single line of code. Netlify Forms allow
-        any HTML form to
-        <strong>
-            accept submissions, send notification emails, and trigger custom events.
-        </strong>
-      </p>
-      <a href="/netlify-forms" class="button">
-        Learn more <span class="sr-only">about Netlify Forms</span>
-      </a>
+    <section class="timeline-section" aria-labelledby="timeline-heading">
+      <div class="timeline-intro">
+        <p class="section-index">03 / The archive</p>
+        <h2 id="timeline-heading">Your story so far.</h2>
+      </div>
+
+      <ol class="timeline">
+        {milestones.map((milestone) => (
+          <li class={milestone.state}>
+            <span class="timeline-dot"></span>
+            <span class="timeline-year">{milestone.year}</span>
+            <strong>{milestone.age}</strong>
+            <small>{milestone.label}</small>
+          </li>
+        ))}
+      </ol>
     </section>
+
+    <footer class="archive-footer">
+      <p>Welcome to billiii world.</p>
+      <p>Made for your birthday · DOB 08.02.2007</p>
+    </footer>
   </main>
+
+  <script is:inline>
+    const birthday = new Date(2007, 1, 8, 0, 0, 0, 0);
+    const pad = (number) => String(number).padStart(2, '0');
+    const formatNumber = new Intl.NumberFormat();
+
+    const setText = (id, value) => {
+      const element = document.getElementById(id);
+      if (element) element.textContent = value;
+    };
+
+    const addYears = (date, years) => new Date(date.getFullYear() + years, date.getMonth(), date.getDate());
+    const addMonths = (date, months) => new Date(date.getFullYear(), date.getMonth() + months, date.getDate());
+
+    function calendarAge(now) {
+      let years = now.getFullYear() - birthday.getFullYear();
+      if (addYears(birthday, years) > now) years -= 1;
+
+      let cursor = addYears(birthday, years);
+      let months = 0;
+      while (months < 11 && addMonths(cursor, months + 1) <= now) months += 1;
+      cursor = addMonths(cursor, months);
+
+      const remaining = Math.max(0, now.getTime() - cursor.getTime());
+      const days = Math.floor(remaining / 86400000);
+      const hours = Math.floor((remaining % 86400000) / 3600000);
+      const minutes = Math.floor((remaining % 3600000) / 60000);
+      const seconds = Math.floor((remaining % 60000) / 1000);
+
+      return { years, months, days, hours, minutes, seconds };
+    }
+
+    function updateArchive() {
+      const now = new Date();
+      const age = calendarAge(now);
+      const lastBirthday = addYears(birthday, age.years);
+      const nextBirthday = addYears(birthday, age.years + 1);
+      const yearDuration = nextBirthday.getTime() - lastBirthday.getTime();
+      const yearElapsed = now.getTime() - lastBirthday.getTime();
+      const progress = Math.min(100, Math.max(0, (yearElapsed / yearDuration) * 100));
+      const totalMilliseconds = Math.max(0, now.getTime() - birthday.getTime());
+      const totalDays = Math.floor(totalMilliseconds / 86400000);
+      const totalWeeks = Math.floor(totalDays / 7);
+      const estimatedHeartbeats = Math.floor((totalMilliseconds / 60000) * 72);
+      const countdown = Math.max(0, nextBirthday.getTime() - now.getTime());
+
+      setText('hero-age', age.years);
+      setText('years', age.years);
+      setText('months', age.months);
+      setText('days', age.days);
+      setText('hours', pad(age.hours));
+      setText('minutes', pad(age.minutes));
+      setText('seconds', pad(age.seconds));
+      setText('year-progress', progress.toFixed(1));
+      setText('progress-age', age.years);
+      setText('total-days', formatNumber.format(totalDays));
+      setText('total-weeks', formatNumber.format(totalWeeks));
+      setText('heartbeats', formatNumber.format(estimatedHeartbeats));
+      setText('next-age', age.years + 1);
+      setText('next-birthday-date', `${pad(nextBirthday.getDate())}.${pad(nextBirthday.getMonth() + 1)}.${nextBirthday.getFullYear()}`);
+      setText('next-birthday-copy', `${nextBirthday.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })} marks ${age.years + 1} complete journeys around the sun in billiii world.`);
+      setText('count-days', Math.floor(countdown / 86400000));
+      setText('count-hours', pad(Math.floor((countdown % 86400000) / 3600000)));
+      setText('count-minutes', pad(Math.floor((countdown % 3600000) / 60000)));
+      setText('count-seconds', pad(Math.floor((countdown % 60000) / 1000)));
+
+      const progressCircle = document.querySelector('.orbit-progress');
+      if (progressCircle) {
+        const circumference = 2 * Math.PI * 105;
+        progressCircle.style.strokeDasharray = `${circumference}`;
+        progressCircle.style.strokeDashoffset = `${circumference * (1 - progress / 100)}`;
+      }
+    }
+
+    updateArchive();
+    window.setInterval(updateArchive, 1000);
+  </script>
 </Layout>
+
+<style>
+  :global(html) {
+    scroll-behavior: smooth;
+    background: #15100f;
+  }
+
+  :global(body.full-bleed) {
+    margin: 0;
+    min-width: 320px;
+    background: #15100f;
+    color: #e9e7dd;
+    font-family: Mulish, sans-serif;
+  }
+
+  :global(body.full-bleed *) {
+    box-sizing: border-box;
+  }
+
+  .archive-shell {
+    --ink: #f8eee9;
+    --muted: #b9a9a2;
+    --dim: #796b66;
+    --lime: #f2a18f;
+    --line: rgba(248, 238, 233, 0.15);
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 82% 11%, rgba(242, 161, 143, 0.18), transparent 24rem),
+      radial-gradient(circle at 8% 62%, rgba(181, 100, 83, 0.09), transparent 25rem),
+      linear-gradient(115deg, rgba(255, 255, 255, 0.025), transparent 35%),
+      #15100f;
+  }
+
+  .grain {
+    position: fixed;
+    z-index: 20;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.14;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+  }
+
+  .topbar,
+  .hero,
+  .live-panel,
+  .countdown-section,
+  .timeline-section,
+  .archive-footer {
+    width: min(1180px, calc(100% - 48px));
+    margin-inline: auto;
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 26px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--ink) !important;
+    font-family: Pacaembu, sans-serif;
+    font-size: 14px;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em;
+    text-decoration: none !important;
+    text-transform: uppercase;
+  }
+
+  .mark {
+    width: 17px;
+    aspect-ratio: 1;
+    border: 1px solid var(--lime);
+    border-radius: 50%;
+    box-shadow: inset 5px 0 0 var(--lime);
+  }
+
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .status span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--lime);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .hero {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(310px, 0.75fr);
+    gap: 6vw;
+    align-items: center;
+    min-height: 710px;
+    padding: 80px 0 100px;
+  }
+
+  .hero::before,
+  .hero::after {
+    position: absolute;
+    z-index: -1;
+    width: 7px;
+    height: 36px;
+    background: var(--lime);
+    content: '';
+    opacity: 0.48;
+    transform: rotate(34deg);
+  }
+
+  .hero::before { top: 18%; left: 52%; }
+  .hero::after { right: 3%; bottom: 15%; transform: rotate(-28deg); }
+
+  .eyebrow,
+  .section-index {
+    margin: 0 0 26px;
+    color: var(--lime);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  h1,
+  h2 {
+    font-family: Pacaembu, sans-serif;
+    font-weight: 480;
+    letter-spacing: -0.055em;
+  }
+
+  h1 {
+    margin: 0;
+    max-width: 760px;
+    color: var(--ink);
+    font-size: clamp(4.6rem, 10vw, 9rem);
+    line-height: 0.82;
+  }
+
+  h1 em {
+    color: var(--lime);
+    font-weight: inherit;
+  }
+
+  .intro {
+    max-width: 530px;
+    margin: 42px 0 0;
+    color: var(--muted);
+    font-size: clamp(16px, 1.8vw, 20px);
+    line-height: 1.6;
+  }
+
+  .intro strong {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--ink);
+    font-family: Pacaembu, sans-serif;
+    font-size: 1.15em;
+    font-weight: 550;
+  }
+
+  .date-stamp {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: max-content;
+    margin-top: 48px;
+    padding: 12px 16px;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: Pacaembu, sans-serif;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.16em;
+  }
+
+  .date-stamp i {
+    display: block;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--lime);
+  }
+
+  .age-orbit {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: min(100%, 410px);
+    aspect-ratio: 1;
+    margin-left: auto;
+  }
+
+  .age-orbit::before,
+  .age-orbit::after {
+    position: absolute;
+    content: '';
+    border-radius: 50%;
+  }
+
+  .age-orbit::before {
+    inset: 13%;
+    border: 1px dashed rgba(199, 214, 156, 0.2);
+    animation: spin 34s linear infinite;
+  }
+
+  .age-orbit::after {
+    top: 11%;
+    right: 15%;
+    width: 8px;
+    height: 8px;
+    background: var(--lime);
+    box-shadow: 0 0 0 7px rgba(199, 214, 156, 0.08);
+  }
+
+  .age-orbit svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .orbit-track,
+  .orbit-progress {
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  .orbit-track { stroke: var(--line); }
+  .orbit-progress {
+    stroke: var(--lime);
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear;
+  }
+
+  .orbit-center {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .orbit-label,
+  .orbit-unit {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .orbit-center strong {
+    margin: 2px 0 -8px;
+    color: var(--ink);
+    font-family: Pacaembu, sans-serif;
+    font-size: clamp(6rem, 12vw, 9rem);
+    font-weight: 450;
+    letter-spacing: -0.08em;
+    line-height: 1;
+  }
+
+  .orbit-caption {
+    position: absolute;
+    bottom: 8%;
+    margin: 0;
+    color: var(--dim);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .live-panel {
+    padding: 86px 0 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 24px;
+  }
+
+  h2 {
+    margin: 0;
+    color: var(--ink);
+    font-size: clamp(2.7rem, 5vw, 5.2rem);
+    line-height: 0.98;
+  }
+
+  .local-note {
+    margin: 0 0 7px;
+    color: var(--dim);
+    font-size: 10px;
+    line-height: 1.7;
+    letter-spacing: 0.11em;
+    text-align: right;
+    text-transform: uppercase;
+  }
+
+  .age-grid {
+    display: grid;
+    grid-template-columns: 1.35fr repeat(5, 1fr);
+    margin-top: 64px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .age-cell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+    min-height: 210px;
+    padding: 28px 22px 24px;
+    border-left: 1px solid var(--line);
+  }
+
+  .age-cell:first-child { border-left: 0; }
+  .age-cell.featured { background: var(--lime); }
+
+  .age-cell strong {
+    color: var(--ink);
+    font-family: Pacaembu, sans-serif;
+    font-size: clamp(3.2rem, 6vw, 5.2rem);
+    font-variant-numeric: tabular-nums;
+    font-weight: 480;
+    letter-spacing: -0.065em;
+    line-height: 1;
+  }
+
+  .featured strong,
+  .featured span { color: #191b14; }
+
+  .age-cell span {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .seconds::after {
+    position: absolute;
+    top: 30px;
+    right: 22px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--lime);
+    content: '';
+  }
+
+  .totals-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 27px 0 90px;
+  }
+
+  .totals-strip p {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0;
+    padding: 0 24px;
+    border-left: 1px solid var(--line);
+  }
+
+  .totals-strip p:first-child { padding-left: 0; border-left: 0; }
+  .totals-strip span { color: var(--dim); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .totals-strip strong { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+
+  .countdown-section {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 8vw;
+    align-items: end;
+    padding: 96px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .countdown-copy > p:last-child {
+    max-width: 420px;
+    margin: 32px 0 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .countdown-card {
+    padding: 30px;
+    background: #f0b5a7;
+    color: #271613;
+  }
+
+  .countdown-topline {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(25, 27, 20, 0.2);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding-top: 32px;
+  }
+
+  .countdown-grid p {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    margin: 0;
+    padding-left: 20px;
+    border-left: 1px solid rgba(25, 27, 20, 0.2);
+  }
+
+  .countdown-grid p:first-child { padding-left: 0; border-left: 0; }
+  .countdown-grid strong { font-family: Pacaembu, sans-serif; font-size: clamp(2.3rem, 4vw, 4rem); font-weight: 500; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; }
+  .countdown-grid span { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; }
+
+  .timeline-section {
+    display: grid;
+    grid-template-columns: 0.32fr 1fr;
+    gap: 6vw;
+    padding: 110px 0 130px;
+    border-top: 1px solid var(--line);
+  }
+
+  .timeline-intro h2 { font-size: clamp(2.4rem, 4.4vw, 4.5rem); }
+
+  .timeline {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    align-self: end;
+    gap: 0;
+    margin: 34px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .timeline::before {
+    position: absolute;
+    top: 7px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--line);
+    content: '';
+  }
+
+  .timeline li {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 37px 14px 0 0;
+    color: var(--dim);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    z-index: 1;
+    top: 3px;
+    left: 0;
+    width: 9px;
+    height: 9px;
+    border: 2px solid #15100f;
+    border-radius: 50%;
+    background: var(--muted);
+  }
+
+  .timeline li.current .timeline-dot {
+    width: 15px;
+    height: 15px;
+    top: 0;
+    background: var(--lime);
+    box-shadow: 0 0 0 5px rgba(199, 214, 156, 0.12);
+  }
+
+  .timeline li.future { opacity: 0.38; }
+  .timeline-year { margin-bottom: 18px; font-family: Pacaembu, sans-serif; font-size: 12px; }
+  .timeline strong { color: var(--ink); font-family: Pacaembu, sans-serif; font-size: 15px; font-weight: 550; }
+  .timeline small { margin-top: 5px; font-size: 9px; line-height: 1.4; letter-spacing: 0.04em; }
+  .timeline li.current strong { color: var(--lime); }
+
+  .archive-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 28px 0 36px;
+    border-top: 1px solid var(--line);
+    color: var(--dim);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .archive-footer p { margin: 0; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.35; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr 330px; gap: 20px; }
+    .age-grid { grid-template-columns: repeat(3, 1fr); }
+    .age-cell { border-bottom: 1px solid var(--line); }
+    .age-cell:nth-child(4) { border-left: 0; }
+    .totals-strip { grid-template-columns: 1fr; gap: 12px; }
+    .totals-strip p, .totals-strip p:first-child { padding: 0; border: 0; }
+    .timeline-section { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 680px) {
+    .topbar,
+    .hero,
+    .live-panel,
+    .countdown-section,
+    .timeline-section,
+    .archive-footer { width: min(100% - 32px, 1180px); }
+
+    .hero { grid-template-columns: 1fr; min-height: auto; padding: 70px 0 86px; }
+    h1 { font-size: clamp(4rem, 21vw, 6rem); }
+    .intro { margin-top: 32px; }
+    .date-stamp { margin-top: 34px; }
+    .age-orbit { width: min(90vw, 350px); margin: 60px auto 0; }
+    .panel-heading { align-items: start; }
+    .local-note { display: none; }
+    .age-grid { grid-template-columns: repeat(2, 1fr); margin-top: 46px; }
+    .age-cell { min-height: 160px; border-left: 1px solid var(--line); }
+    .age-cell:nth-child(odd) { border-left: 0; }
+    .age-cell:nth-child(4) { border-left: 1px solid var(--line); }
+    .totals-strip { padding-bottom: 76px; }
+    .countdown-section { grid-template-columns: 1fr; padding: 78px 0; }
+    .countdown-card { padding: 22px; }
+    .countdown-grid { grid-template-columns: repeat(2, 1fr); gap: 24px 0; }
+    .countdown-grid p:nth-child(3) { padding-left: 0; border-left: 0; }
+    .timeline-section { padding: 82px 0 96px; }
+    .timeline { grid-template-columns: 1fr; margin-top: 12px; }
+    .timeline::before { top: 0; bottom: 0; left: 6px; right: auto; width: 1px; height: auto; }
+    .timeline li { min-height: 90px; padding: 0 0 24px 42px; }
+    .timeline-dot, .timeline li.current .timeline-dot { top: 0; left: 0; }
+    .timeline-year { margin-bottom: 3px; }
+    .archive-footer { gap: 16px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html) { scroll-behavior: auto; }
+    .status span, .age-orbit::before { animation: none; }
+  }
+</style>
